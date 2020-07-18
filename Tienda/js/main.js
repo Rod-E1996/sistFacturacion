@@ -26,32 +26,19 @@ $(document).ready(function() {
 
 $(document).ready(function(){
     // $('#descripcion_1').val(1);
-    recargarLista();
-    
-    $('#descripcion_1').change(function(){
-        recargarLista();
-    });
+   
 })
 
-function recargarLista(){
-    // d = document.getElementById("descripcion_1").value;
-    // alert(d);
-    $.ajax({
-        type:"POST",
-        url:"datos.php",
-        data:
-            "descripcion=" + $('#descripcion_1').val(),
-        success:function(r){
-            $('#fila_1').html(r);
-        }
-    });
+function recargarLista(price,iteradorPos){
+    $("#num2_"+iteradorPos).val(price);
 }
-function cal() {
+function cal(val1,val2,iterador) {
+    //alert(val1+" "+val2+" "+iterador);
     try {
         
-      var a = parseInt(document.getElementById('num1').value),
-          b = parseInt(document.getElementById('num2').value);
-      document.getElementById('sum').value = a * b;
+      var a = parseInt(val1),
+          b = parseInt(val2);
+      $('#sum_'+iterador).val(a * b);
     } catch (e) {
     }
   }

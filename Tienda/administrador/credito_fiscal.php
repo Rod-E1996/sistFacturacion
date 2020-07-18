@@ -71,31 +71,31 @@
                     <?php
                         for ($i=1; $i<=10; $i++){
                             //linea 77, 93 y 97
+                            $consulta="SELECT * FROM productos WHERE cantidad>0 ORDER BY descripcion ASC";
+                            $result=$conexion->query($consulta);
                             echo "
                                 <tr>
                                     <td class='align-middle'>
                                         
-                                        <input type='number' name='cantidad_$i' id='num1' min='1' step='1' value='0' onchange='cal()' onkeyup='cal()'/>
+                                        <input type='number' name='cantidad_$i' id='num1_$i' min='1' step='1' value='0' onchange=cal($('#num1_$i').val(),$('#num2_$i').val(),$i) onkeyup=cal($('#num1_$i').val(),$('#num2_$i').val(),$i)/>
                                     </td>
                                     <td class='align-middle'>
-                                        <select class='form-control' name='descripcion_$i' id='descripcion_$i' value='precio_$i' onchange='recargarLista(this.value);'>
+                                        <select class='form-control' name='descripcion_$i' id='descripcion_$i' value='precio_$i' onchange='recargarLista(this.value,$i);'>
                                         <option value='' selected disabled>-- Seleccione un producto --</option>";
-                                        $consulta="SELECT * FROM productos WHERE cantidad>0 ORDER BY descripcion ASC";
-                                        $result=$conexion->query($consulta);
+                                      
                                         while ($row=$result->fetch_assoc()) {
                                             echo "
-                                            <option value='";echo $row['descripcion'];echo "'>";echo $row['descripcion'];echo "</option>";
+                                            <option value='";echo $row['precio'];echo "' >";echo $row['descripcion'];echo "</option>";
                                         }
                                     echo "
                                     </select>
                                     </td>
                                     <td class='align-middle' id='fila_$i'>
-                                        
-                                        <input type='number' name='precio_$i' id='num2' min='1' step='1' value='precio_$i' onchange='cal()' onkeyup='cal()'/>
+                                    <input type='number' name='precio_$i' id='num2_$i' min='1' step='1' value='0' onchange=cal($('#num1_$i').val(),$('#num2_$i').val(),$i)      onkeyup=cal($('#num1_$i').val(),$('#num2_$i').val(),$i)/>
                                     </td>
                                     <td class='align-middle'>
                                         
-                                        <input type='number' class='form-control' name='ventas_afectas_$i' id='sum' value='0' readonly='readonly'>
+                                        <input type='number' class='form-control' name='ventas_afectas_$i' id='sum_$i' value='0' readonly='readonly'>
                                     </td>
                                 </tr>
                             ";
