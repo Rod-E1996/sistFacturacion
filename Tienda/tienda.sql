@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-07-2020 a las 23:10:20
+-- Tiempo de generación: 18-07-2020 a las 23:28:29
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tienda`
 --
+CREATE DATABASE IF NOT EXISTS `tienda` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `tienda`;
 
 -- --------------------------------------------------------
 
@@ -28,8 +30,8 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `clientes`
 --
 
-CREATE TABLE `clientes` (
-  `id_cliente` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(256) NOT NULL,
   `direccion` varchar(256) NOT NULL,
   `telefono` varchar(16) NOT NULL,
@@ -37,8 +39,9 @@ CREATE TABLE `clientes` (
   `dui` varchar(25) DEFAULT NULL,
   `nit` varchar(25) DEFAULT NULL,
   `registro_fiscal` varchar(25) NOT NULL,
-  `porcentaje_ganancia` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `porcentaje_ganancia` double DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -53,8 +56,8 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `direccion`, `telefono`, `celula
 -- Estructura de tabla para la tabla `facturas`
 --
 
-CREATE TABLE `facturas` (
-  `id_factura` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `facturas` (
+  `id_factura` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(256) NOT NULL,
   `fecha` date NOT NULL,
   `direccion` varchar(256) DEFAULT NULL,
@@ -101,8 +104,9 @@ CREATE TABLE `facturas` (
   `ventas_afectas_8` double DEFAULT NULL,
   `ventas_afectas_9` double DEFAULT NULL,
   `ventas_afectas_10` double DEFAULT NULL,
-  `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `total` double NOT NULL,
+  PRIMARY KEY (`id_factura`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `facturas`
@@ -119,15 +123,16 @@ INSERT INTO `facturas` (`id_factura`, `nombre`, `fecha`, `direccion`, `dui`, `ni
 -- Estructura de tabla para la tabla `productos`
 --
 
-CREATE TABLE `productos` (
-  `id_producto` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `productos` (
+  `id_producto` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` int(11) NOT NULL,
   `descripcion` varchar(256) NOT NULL,
   `costo` double NOT NULL,
   `precio` double NOT NULL,
   `cantidad` int(4) NOT NULL,
-  `fecha_vencimiento` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fecha_vencimiento` date NOT NULL,
+  PRIMARY KEY (`id_producto`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -143,12 +148,13 @@ INSERT INTO `productos` (`id_producto`, `codigo`, `descripcion`, `costo`, `preci
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(32) NOT NULL,
   `clave` varchar(64) NOT NULL,
-  `tipo` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `tipo` int(1) NOT NULL,
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -157,62 +163,6 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_usuario`, `usuario`, `clave`, `tipo`) VALUES
 (1, 'admin', 'admin', 1),
 (2, 'user', 'user', 2);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id_cliente`);
-
---
--- Indices de la tabla `facturas`
---
-ALTER TABLE `facturas`
-  ADD PRIMARY KEY (`id_factura`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id_producto`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `facturas`
---
-ALTER TABLE `facturas`
-  MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
